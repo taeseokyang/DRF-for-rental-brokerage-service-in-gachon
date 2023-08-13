@@ -3,6 +3,8 @@ from django.contrib.auth.password_validation import  validate_password
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from rest_framework.validators import UniqueValidator
+from django.contrib.auth import authenticate #유저 인증용
+from .models import Profile
 
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
@@ -36,3 +38,22 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
         token = Token.objects.create(user=user)
         return user
+
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField(required=True)
+    password = serializers.CharField(required=True, write_only=True)
+
+    def validate(self, attrs):
+        user = authenticate(**attrs)
+        if user:
+            token = Token.objects.get(user=user)
+            return token
+        raise serializers.ValidationError(
+            {"error": "Unable to log in with provided credentials."}
+        )
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ("nickname", "position", "subjects", "image")
