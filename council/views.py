@@ -16,6 +16,8 @@ class CouncilPostViewSet(viewsets.ModelViewSet):
         return CouncilPostCreateSerializer
 
     def perform_create(self, serializer):
+
+
         serializer.save(
             council_user=self.request.user,
         )

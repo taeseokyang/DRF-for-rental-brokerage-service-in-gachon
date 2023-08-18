@@ -18,7 +18,12 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         profile = Profile.objects.get(user=self.request.user)
+        #빌리는 카운트
+        # profile.borrow_cnt+=1
+        # profile.save()
+
+        # profile.update(borrow_cnt=3)
         serializer.save(
             author=self.request.user,
-            profile = profile
+            profile=profile
         )

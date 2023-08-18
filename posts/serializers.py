@@ -6,7 +6,7 @@ class PostSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(read_only=True)
     class Meta:
         model = Post
-        fields = ("pk", "profile", "title", "category", "body", "location","deadline_date","return_date","published_date", "done")
+        fields = ("pk","profile", "title", "category", "body", "location","deadline_date","return_date","published_date", "done")
 
 class PostCreateSerializer(serializers.ModelSerializer):
     class Meta:
