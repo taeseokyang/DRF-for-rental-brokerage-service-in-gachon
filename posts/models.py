@@ -10,6 +10,10 @@ class Post(models.Model):
     title = models.CharField(max_length=128)
     category = models.CharField(max_length=128)
     body = models.TextField()
-    image = models.ImageField(upload_to='post/',default='default.png')
-    likes = models.ManyToManyField(User, related_name="like_posts",blank=True)
+
+    done = models.BooleanField(default=False)
+    # likes = models.ManyToManyField(User, related_name="like_posts",blank=True)
+    location = models.CharField(max_length=128, default="가천대학교")
+    deadline_date = models.DateTimeField(default=timezone.now)
+    return_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(default=timezone.now)

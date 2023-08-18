@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "users",
     "posts",
-    "corsheaders"
+    "corsheaders",
+    "django_filters"
 ]
 
 MIDDLEWARE = [

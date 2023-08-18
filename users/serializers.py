@@ -20,7 +20,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'password2', 'email')
+        fields = ('username', 'password', 'password2','email')
 
     def validate(self, data):
         if data['password'] != data['password2']:
@@ -48,12 +48,14 @@ class LoginSerializer(serializers.Serializer):
         user = authenticate(**attrs)
         if user:
             token = Token.objects.get(user=user)
-            return token
+            answer = [token,user.id]
+            return answer
         raise serializers.ValidationError(
             {"error": "Unable to log in with provided credentials."}
         )
 
+
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ("nickname", "position", "subjects", "image")
+        fields = ("nickname", "borrow_cnt", "lend_cnt", "image")

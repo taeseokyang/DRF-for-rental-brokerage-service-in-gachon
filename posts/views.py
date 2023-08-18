@@ -4,11 +4,13 @@ from .models import Post
 from users.models import Profile
 from .permissions import CustomReadOnly
 from .serializers import PostSerializer, PostCreateSerializer
+from django_filters.rest_framework import DjangoFilterBackend
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     permission_classes = [CustomReadOnly]
-
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['author','location']
     def get_serializer_class(self):
         if self.action == 'list' or 'restive':
             return PostSerializer
