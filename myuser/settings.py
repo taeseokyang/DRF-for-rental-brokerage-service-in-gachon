@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "users",
     "posts",
     "comments",
+    "council",
     "corsheaders",
     "django_filters"
 ]
